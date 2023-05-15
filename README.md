@@ -2,7 +2,7 @@ DnD Hand Book
 O Dnd Hand Book é um aplicativo que utiliza a Api do D&D 5th edição para trazer algumas facilidades e funcionalidades úteis para os jogadores.
 
 Plataformas:
-* [Github] {https://github.com/L-Mosca/dnd_app}
+* [Github] {https://github.com/L-Mosca/DnD_Handbook}
 * [Firebase] {https://console.firebase.google.com/u/1/project/dnd-5th/overview?hl=pt-br}
 
 Como rodar o projeto:
