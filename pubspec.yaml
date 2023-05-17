@@ -16,6 +16,7 @@ dependencies:
   get: ^4.6.5
   flutter_bloc: ^8.1.2
   flutter_native_splash: ^2.2.19
+  http: ^0.13.5
 
 flutter_native_splash:
   image: "lib/assets/images/img_dnd_splash.jpg"
