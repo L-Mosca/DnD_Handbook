@@ -5,5 +5,5 @@ import 'build_flavor.dart';
 
 void buildFlavor(Flavor flavor) {
   BuildFlavor.appFlavor = flavor;
-  runApp(DnDApp());
+  runApp(Builder(builder: (context) => DnDApp(context: context)));
 }
