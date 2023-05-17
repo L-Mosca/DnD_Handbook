@@ -10,11 +10,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-      if (state is HomeInitState) {
-        return const Scaffold(backgroundColor: Colors.green);
-      } else {
-        return const Scaffold(backgroundColor: Colors.blueAccent);
-      }
+      return const Scaffold();
     });
   }
 }
