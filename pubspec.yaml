@@ -18,7 +18,7 @@ dependencies:
   flutter_native_splash: ^2.2.19
 
 flutter_native_splash:
-  background_image: "lib/assets/images/dnd_icon_android.png"
+  image: "lib/assets/images/img_dnd_splash.jpg"
   android: true
   ios: true
   web: false
