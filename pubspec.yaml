@@ -15,6 +15,17 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   get: ^4.6.5
   flutter_bloc: ^8.1.2
+  flutter_native_splash: ^2.2.19
+
+flutter_native_splash:
+  background_image: "lib/assets/images/dnd_icon_android.png"
+  android: true
+  ios: true
+  web: false
+  color: "#000000"
+  android_12:
+    color: "#000000"
+
 
 flutter_icons:
   image_path_android: 'lib/assets/images/dnd_icon_android.png'
