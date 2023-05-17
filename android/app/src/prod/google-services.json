@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "827182830094",
+    "project_id": "dnd-5th",
+    "storage_bucket": "dnd-5th.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827182830094:android:b718b93c1f9044f60b225f",
+        "android_client_info": {
+          "package_name": "com.dnd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827182830094-lj4atfg85hmt9qgksphqcabcgp4ohhca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB18buFzF6nwsZDxzr8rNA_rgvvgHAMwqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827182830094-lj4atfg85hmt9qgksphqcabcgp4ohhca.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "827182830094-hiredqe7eepf9pq1o62cn9vdvbfpumjn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dndapp.dndApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827182830094:android:38eeb60065a1daba0b225f",
+        "android_client_info": {
+          "package_name": "com.dnd.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827182830094-lj4atfg85hmt9qgksphqcabcgp4ohhca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB18buFzF6nwsZDxzr8rNA_rgvvgHAMwqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827182830094-lj4atfg85hmt9qgksphqcabcgp4ohhca.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "827182830094-hiredqe7eepf9pq1o62cn9vdvbfpumjn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dndapp.dndApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
