@@ -20,11 +20,11 @@ class BuildFlavor {
   static String get baseUrl {
     switch (appFlavor) {
       case Flavor.develop:
-        return '';
+        return 'https://www.dnd5eapi.co/';
       case Flavor.prod:
-        return '';
+        return 'https://www.dnd5eapi.co/';
       default:
-        return '';
+        return 'https://www.dnd5eapi.co/';
     }
   }
 }
