@@ -4,7 +4,7 @@ abstract class AppColors {
   // Material Colors
   static const canvasDark = Color(0xFF000000);
   static const canvasLight = Color(0xFFFFFFFF);
-  static const cardDark = Color(0xFF000000);
+  static const cardDark = Color(0xFF041122);
   static const cardLight = Color(0xFFFFFFFF);
   static const schemeSeedDark = Color(0xFF000000);
   static const schemeSeedLight = Color(0xFFFFFFFF);
@@ -27,7 +27,7 @@ abstract class AppColors {
   static const primaryColor = Color(0xFF000000);
   static const primaryDark = Color(0xFF000000);
   static const primaryLight = Color(0xFFFFFFFF);
-  static const scaffoldBackgroundDark = Color(0xFF000000);
+  static const scaffoldBackgroundDark = Color(0xFF020A1A);
   static const scaffoldBackgroundLight = Color(0xFFFFFFFF);
   static const secondaryHeaderDark = Color(0xFF000000);
   static const secondaryHeaderLight = Color(0xFFFFFFFF);

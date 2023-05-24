@@ -1,3 +1,6 @@
+import 'package:dnd_app/presentation/bestiary/beatiary_page.dart';
+import 'package:dnd_app/presentation/bestiary/bloc/bestiary_bloc.dart';
+import 'package:dnd_app/presentation/bestiary/bloc/bestiary_event.dart';
 import 'package:dnd_app/presentation/home/bloc/home_bloc.dart';
 import 'package:dnd_app/presentation/home/bloc/home_event.dart';
 import 'package:dnd_app/presentation/home/home_binding.dart';
@@ -7,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart'
     as transition;
 
+import '../presentation/bestiary/bestiary_binding.dart';
 import '../presentation/home/home_page.dart';
 
 class AppRoutes {
@@ -14,13 +18,19 @@ class AppRoutes {
     GetPage(
         name: RoutesConstants.routeHome,
         page: () => BlocProvider(
-              create: (_) => HomeBloc()
-                ..add(
-                  HomeInitEvent(),
-                ),
+              create: (_) => HomeBloc()..add(HomeInitEvent()),
               child: const HomePage(),
             ),
         binding: HomeBinding(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transition: transition.Transition.native),
+    GetPage(
+        name: RoutesConstants.routeBestiary,
+        page: () => BlocProvider(
+              create: (_) => BestiaryBloc(Get.find())..add(BestiaryInitEvent()),
+              child: const BestiaryPage(),
+            ),
+        binding: BestiaryBinding(),
         transitionDuration: const Duration(milliseconds: 300),
         transition: transition.Transition.native)
   ];
