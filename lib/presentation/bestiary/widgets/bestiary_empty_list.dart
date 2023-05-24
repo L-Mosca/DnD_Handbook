@@ -1,3 +1,4 @@
+import 'package:dnd_app/flavor/build_flavor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +21,7 @@ class _BestiaryEmptyListState extends State<BestiaryEmptyList> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('lib/assets/images/img_empty_list.png'),
-          const Text('Teste de Escrita'),
+          Text(BuildFlavor.title),
           Obx(
             () => SwitchListTile(
               secondary: Icon(

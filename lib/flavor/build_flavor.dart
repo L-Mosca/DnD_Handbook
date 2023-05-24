@@ -8,9 +8,9 @@ class BuildFlavor {
   static String get title {
     switch (appFlavor) {
       case Flavor.develop:
-        return 'D&D App';
+        return 'D&D App Dev';
       case Flavor.prod:
-        return 'D&D App';
+        return 'D&D App Prod';
 
       default:
         return 'D&D App';
