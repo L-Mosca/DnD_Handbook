@@ -16,7 +16,7 @@ class Styles {
               brightness: isDarkTheme ? Brightness.dark : Brightness.light,
             ),
         cardColor:
-            isDarkTheme ? const Color(0xFF000000) : const Color(0xFFFFFFFF),
+            isDarkTheme ? AppColors.cardDark : AppColors.cardLight,
         canvasColor: isDarkTheme ? const Color(0xFF000000) : const Color(0xFFFFFFFF),
         buttonTheme: Theme.of(context).buttonTheme.copyWith(
               colorScheme: isDarkTheme

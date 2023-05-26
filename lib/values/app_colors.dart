@@ -4,8 +4,8 @@ abstract class AppColors {
   // Material Colors
   static const canvasDark = Color(0xFF000000);
   static const canvasLight = Color(0xFFFFFFFF);
-  static const cardDark = Color(0xFF041122);
-  static const cardLight = Color(0xFFFFFFFF);
+  static const cardDark = Color(0xFF041324);
+  static const cardLight = Color(0xFFE0DDDD);
   static const schemeSeedDark = Color(0xFF000000);
   static const schemeSeedLight = Color(0xFFFFFFFF);
   static const dialogBackgroundDark = Color(0xFF000000);
@@ -37,7 +37,6 @@ abstract class AppColors {
   static const splashLight = Color(0xFFFFFFFF);
   static const unselectedWidgetDark = Color(0xFF000000);
   static const unselectedWidgetLight = Color(0xFFFFFFFF);
-
   // Material Colors
 
   // Color Schemes
@@ -81,5 +80,10 @@ abstract class AppColors {
   static const inversePrimaryLight = Color(0xFFFFFFFF);
   static const surfaceTintDark = Color(0xFF000000);
   static const surfaceTintLight = Color(0xFFFFFFFF);
-// Color Schemes
+  // Color Schemes
+
+  // Text color
+  static const defaultTextLight = Color(0xFF000000);
+  static const defaultTextDark = Color(0xFFFFFFFF);
+  // Text color
 }
