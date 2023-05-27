@@ -10,6 +10,8 @@ class BestiaryLoading extends StatefulWidget {
 class _BestiaryLoadingState extends State<BestiaryLoading> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      child: Image.asset('lib/assets/images/img_loading_gif.gif'),
+    );
   }
 }

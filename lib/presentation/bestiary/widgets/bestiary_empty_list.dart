@@ -1,5 +1,6 @@
 import 'package:dnd_app/design_system/app_design/base_widgets/dnd_default_text.dart';
 import 'package:dnd_app/flavor/build_flavor.dart';
+import 'package:dnd_app/values/app_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,29 +18,27 @@ class _BestiaryEmptyListState extends State<BestiaryEmptyList> {
   Widget build(BuildContext context) {
     final themeState = Get.find<DarkThemeProvider>();
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset('lib/assets/images/img_empty_list.png'),
-          DndDefaultText(text: BuildFlavor.title),
-          Obx(
-            () => SwitchListTile(
-              secondary: Icon(
-                themeState.darkTheme
-                    ? Icons.dark_mode_outlined
-                    : Icons.light_mode_outlined,
-              ),
-              value: themeState.darkTheme,
-              onChanged: (bool value) {
-                themeState.setDarkTheme = value;
-                Get.changeThemeMode(value ? ThemeMode.dark : ThemeMode.light);
-              },
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(height: AppDimensions.marginHuge),
+        Image.asset('lib/assets/images/img_empty_list.png'),
+        DndDefaultText(text: BuildFlavor.title),
+        Obx(
+          () => SwitchListTile(
+            secondary: Icon(
+              themeState.darkTheme
+                  ? Icons.dark_mode_outlined
+                  : Icons.light_mode_outlined,
             ),
+            value: themeState.darkTheme,
+            onChanged: (bool value) {
+              themeState.setDarkTheme = value;
+              Get.changeThemeMode(value ? ThemeMode.dark : ThemeMode.light);
+            },
           ),
-          Container(child: DndDefaultText(text: "test"))
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

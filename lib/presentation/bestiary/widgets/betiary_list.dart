@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../domain/models/monster/Monster.dart';
+import '../../../domain/models/monster/monster.dart';
 
 class BestiaryList extends StatefulWidget {
   final List<Monster> monsterList;

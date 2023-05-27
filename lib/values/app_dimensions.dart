@@ -9,6 +9,9 @@ abstract class AppDimensions {
   static const marginExtraBig = 30.0;
   static const marginHuge = 40.0;
 
+  // Radius Dimensions
+  static const radiusDefault = 10.0;
+
   // Text Dimensions
   static const textSizeMini = 10.0;
   static const textSizeSmall = 12.0;

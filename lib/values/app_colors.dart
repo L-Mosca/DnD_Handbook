@@ -37,7 +37,6 @@ abstract class AppColors {
   static const splashLight = Color(0xFFFFFFFF);
   static const unselectedWidgetDark = Color(0xFF000000);
   static const unselectedWidgetLight = Color(0xFFFFFFFF);
-  // Material Colors
 
   // Color Schemes
   static const primaryContainerDark = Color(0xFF000000);
@@ -80,10 +79,31 @@ abstract class AppColors {
   static const inversePrimaryLight = Color(0xFFFFFFFF);
   static const surfaceTintDark = Color(0xFF000000);
   static const surfaceTintLight = Color(0xFFFFFFFF);
-  // Color Schemes
 
   // Text color
   static const defaultTextLight = Color(0xFF000000);
   static const defaultTextDark = Color(0xFFFFFFFF);
-  // Text color
+
+  // Hint Color
+  static const defaultHintTextLight = Color(0xFF041324);
+  static const defaultHintTextDark = Color(0xFF365283);
+
+  // Border Color
+  static const defaultBorderLight = Color(0xFFC7C7C7);
+  static const defaultBorderDark = Color(0xFF08233F);
+
+  // Text Filed Fill Color
+  static const defaultFillColorLight = Color(0xFFFCFCFC);
+  static const defaultFillColorDark = Color(0xFF05192C);
+
+  // Icon Color
+  static const iconColorLight = Color(0xFF041324);
+  static const iconColorDark = Color(0xFF365283);
+
+  // Shadow Color
+  static const shadowColorLight = Color(0xFF041324);
+  static const shadowColorDark = Color(0xFF365283);
+
+  // Error Color
+  static const errorColor = Color(0xFFF85F5E);
 }
