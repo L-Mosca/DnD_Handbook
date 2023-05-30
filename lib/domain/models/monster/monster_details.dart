@@ -1,12 +1,19 @@
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonSerializable()
 class MonsterDetail {
   String? index;
   String? name;
   String? size;
   String? type;
   String? alignment;
+  @JsonKey(name: 'armor_class')
   List<ArmorClass>? armorClass;
+  @JsonKey(name: 'hit_points')
   int? hitPoints;
+  @JsonKey(name: 'hit_dice')
   String? hitDice;
+  @JsonKey(name: 'hit_points_roll')
   String? hitPointsRoll;
   Speed? speed;
   int? strength;
@@ -16,53 +23,70 @@ class MonsterDetail {
   int? wisdom;
   int? charisma;
   List<Proficiencies>? proficiencies;
-  List<void>? damageVulnerabilities;
-  List<void>? damageResistances;
-  List<void>? damageImmunities;
-  List<void>? conditionImmunities;
+  @JsonKey(name: 'damage_vulnerabilities')
+  List<String>? damageVulnerabilities;
+  @JsonKey(name: 'damage_resistance')
+  List<String>? damageResistances;
+  List<String>? damageImmunities;
+  //@JsonKey(name: 'condition_immunities')
+  //List<String>? conditionImmunities;
   Senses? senses;
   String? languages;
-  int? challengeRating;
+  num? challengeRating;
   int? xp;
+  @JsonKey(name: 'special_abilities')
   List<SpecialAbilities>? specialAbilities;
   List<Actions>? actions;
+  @JsonKey(name: 'legendary_actions')
   List<LegendaryActions>? legendaryActions;
-  String? image;
   String? url;
+  String? image;
+  String? subtype;
 
-  // nome, imagem, alinhamento, tipo
 
-  MonsterDetail(
-      {this.index,
-        this.name,
-        this.size,
-        this.type,
-        this.alignment,
-        this.armorClass,
-        this.hitPoints,
-        this.hitDice,
-        this.hitPointsRoll,
-        this.speed,
-        this.strength,
-        this.dexterity,
-        this.constitution,
-        this.intelligence,
-        this.wisdom,
-        this.charisma,
-        this.proficiencies,
-        this.damageVulnerabilities,
-        this.damageResistances,
-        this.damageImmunities,
-        this.conditionImmunities,
-        this.senses,
-        this.languages,
-        this.challengeRating,
-        this.xp,
-        this.specialAbilities,
-        this.actions,
-        this.legendaryActions,
-        this.image,
-        this.url});
+/*  @override
+  String toString() {
+    return 'MonsterDetail(index: $index, name: $name, size: $size, type: $type, alignment: $alignment, '
+        'armorClass: $armorClass, hitPoints: $hitPoints, hitDice: $hitDice, hitPointsRoll: $hitPointsRoll, '
+        'speed: $speed, strength: $strength, dexterity: $dexterity, constitution: $constitution, '
+        'intelligence: $intelligence, wisdom: $wisdom, charisma: $charisma, proficiencies: $proficiencies, '
+        'damageVulnerabilities: $damageVulnerabilities, damageResistances: $damageResistances, '
+        'damageImmunities: $damageImmunities, conditionImmunities: $conditionImmunities, '
+        'senses: $senses, languages: $languages, challengeRating: $challengeRating, xp: $xp, '
+        'specialAbilities: $specialAbilities, actions: $actions, legendaryActions: $legendaryActions, url: $url)';
+  }*/
+
+  MonsterDetail({
+    this.index,
+    this.name,
+    this.size,
+    this.type,
+    this.alignment,
+    this.armorClass,
+    this.hitPoints,
+    this.hitDice,
+    this.hitPointsRoll,
+    this.speed,
+    this.strength,
+    this.dexterity,
+    this.constitution,
+    this.intelligence,
+    this.wisdom,
+    this.charisma,
+    this.proficiencies,
+    this.damageVulnerabilities,
+    this.damageResistances,
+    this.damageImmunities,
+    //this.conditionImmunities,
+    this.senses,
+    this.languages,
+    this.challengeRating,
+    this.xp,
+    this.specialAbilities,
+    this.actions,
+    this.legendaryActions,
+    this.url,
+  });
 
   MonsterDetail.fromJson(Map<String, dynamic> json) {
     index = json['index'];
@@ -92,32 +116,19 @@ class MonsterDetail {
         proficiencies!.add(Proficiencies.fromJson(v));
       });
     }
-    if (json['damage_vulnerabilities'] != null) {
-      damageVulnerabilities = <Null>[];
-      json['damage_vulnerabilities'].forEach((v) {
-        damageVulnerabilities!.add(Null.from(v));
-      });
-    }
-    if (json['damage_resistances'] != null) {
-      damageResistances = <Null>[];
-      json['damage_resistances'].forEach((v) {
-        damageResistances!.add(Null.fromJson(v));
-      });
-    }
-    if (json['damage_immunities'] != null) {
-      damageImmunities = <Null>[];
-      json['damage_immunities'].forEach((v) {
-        damageImmunities!.add(void.fromJson(v));
-      });
-    }
-    if (json['condition_immunities'] != null) {
-      conditionImmunities = <Null>[];
-      json['condition_immunities'].forEach((v) {
-        conditionImmunities!.add(void.fromJson(v));
-      });
-    }
-    senses =
-    json['senses'] != null ? Senses.fromJson(json['senses']) : null;
+    damageVulnerabilities = json['damage_vulnerabilities'] != null
+        ? List<String>.from(json['damage_vulnerabilities'])
+        : null;
+    damageResistances = json['damage_resistances'] != null
+        ? List<String>.from(json['damage_resistances'])
+        : null;
+    damageImmunities = json['damage_immunities'] != null
+        ? List<String>.from(json['damage_immunities'])
+        : null;
+    //conditionImmunities = json['condition_immunities'] != null
+    //    ? List<String>.from(json['condition_immunities'])
+    //    : null;
+    senses = json['senses'] != null ? Senses.fromJson(json['senses']) : null;
     languages = json['languages'];
     challengeRating = json['challenge_rating'];
     xp = json['xp'];
@@ -139,7 +150,6 @@ class MonsterDetail {
         legendaryActions!.add(LegendaryActions.fromJson(v));
       });
     }
-    image = json['image'];
     url = json['url'];
   }
 
@@ -156,9 +166,7 @@ class MonsterDetail {
     data['hit_points'] = hitPoints;
     data['hit_dice'] = hitDice;
     data['hit_points_roll'] = hitPointsRoll;
-    if (speed != null) {
-      data['speed'] = speed!.toJson();
-    }
+    data['speed'] = speed != null ? speed!.toJson() : null;
     data['strength'] = strength;
     data['dexterity'] = dexterity;
     data['constitution'] = constitution;
@@ -166,28 +174,13 @@ class MonsterDetail {
     data['wisdom'] = wisdom;
     data['charisma'] = charisma;
     if (proficiencies != null) {
-      data['proficiencies'] =
-          proficiencies!.map((v) => v.toJson()).toList();
+      data['proficiencies'] = proficiencies!.map((v) => v.toJson()).toList();
     }
-    if (damageVulnerabilities != null) {
-      data['damage_vulnerabilities'] =
-          damageVulnerabilities!.map((v) => v.toJson()).toList();
-    }
-    if (damageResistances != null) {
-      data['damage_resistances'] =
-          damageResistances!.map((v) => v.toJson()).toList();
-    }
-    if (damageImmunities != null) {
-      data['damage_immunities'] =
-          damageImmunities!.map((v) => v.toJson()).toList();
-    }
-    if (conditionImmunities != null) {
-      data['condition_immunities'] =
-          conditionImmunities!.map((v) => v.toJson()).toList();
-    }
-    if (senses != null) {
-      data['senses'] = senses!.toJson();
-    }
+    data['damage_vulnerabilities'] = damageVulnerabilities;
+    data['damage_resistances'] = damageResistances;
+    data['damage_immunities'] = damageImmunities;
+    //data['condition_immunities'] = conditionImmunities;
+    data['senses'] = senses != null ? senses!.toJson() : null;
     data['languages'] = languages;
     data['challenge_rating'] = challengeRating;
     data['xp'] = xp;
@@ -202,27 +195,26 @@ class MonsterDetail {
       data['legendary_actions'] =
           legendaryActions!.map((v) => v.toJson()).toList();
     }
-    data['image'] = image;
     data['url'] = url;
     return data;
   }
 }
 
 class ArmorClass {
-  String? type;
   int? value;
+  String? notes;
 
-  ArmorClass({this.type, this.value});
+  ArmorClass({this.value, this.notes});
 
   ArmorClass.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
     value = json['value'];
+    notes = json['notes'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['type'] = type;
     data['value'] = value;
+    data['notes'] = notes;
     return data;
   }
 }
@@ -247,46 +239,20 @@ class Speed {
 }
 
 class Proficiencies {
+  String? name;
   int? value;
-  Proficiency? proficiency;
 
-  Proficiencies({this.value, this.proficiency});
+  Proficiencies({this.name, this.value});
 
   Proficiencies.fromJson(Map<String, dynamic> json) {
-    value = json['value'];
-    proficiency = json['proficiency'] != null
-        ? Proficiency.fromJson(json['proficiency'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['value'] = value;
-    if (proficiency != null) {
-      data['proficiency'] = proficiency!.toJson();
-    }
-    return data;
-  }
-}
-
-class Proficiency {
-  String? index;
-  String? name;
-  String? url;
-
-  Proficiency({this.index, this.name, this.url});
-
-  Proficiency.fromJson(Map<String, dynamic> json) {
-    index = json['index'];
     name = json['name'];
-    url = json['url'];
+    value = json['value'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['index'] = index;
     data['name'] = name;
-    data['url'] = url;
+    data['value'] = value;
     return data;
   }
 }
@@ -313,176 +279,37 @@ class Senses {
 class SpecialAbilities {
   String? name;
   String? desc;
-  Dc? dc;
 
-  SpecialAbilities({this.name, this.desc, this.dc});
+  SpecialAbilities({this.name, this.desc});
 
   SpecialAbilities.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     desc = json['desc'];
-    dc = json['dc'] != null ? Dc.fromJson(json['dc']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['desc'] = desc;
-    if (dc != null) {
-      data['dc'] = dc!.toJson();
-    }
-    return data;
-  }
-}
-
-class Dc {
-  Proficiency? dcType;
-  int? dcValue;
-  String? successType;
-
-  Dc({this.dcType, this.dcValue, this.successType});
-
-  Dc.fromJson(Map<String, dynamic> json) {
-    dcType = json['dc_type'] != null
-        ? Proficiency.fromJson(json['dc_type'])
-        : null;
-    dcValue = json['dc_value'];
-    successType = json['success_type'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (dcType != null) {
-      data['dc_type'] = dcType!.toJson();
-    }
-    data['dc_value'] = dcValue;
-    data['success_type'] = successType;
     return data;
   }
 }
 
 class Actions {
   String? name;
-  String? multiattackType;
   String? desc;
-  List<Actions>? actions;
-  int? attackBonus;
-  Dc? dc;
-  List<Damage>? damage;
-  Usage? usage;
 
-  Actions(
-      {this.name,
-        this.multiattackType,
-        this.desc,
-        this.actions,
-        this.attackBonus,
-        this.dc,
-        this.damage,
-        this.usage});
+  Actions({this.name, this.desc});
 
   Actions.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    multiattackType = json['multiattack_type'];
     desc = json['desc'];
-    if (json['actions'] != null) {
-      actions = <Actions>[];
-      json['actions'].forEach((v) {
-        actions!.add(Actions.fromJson(v));
-      });
-    }
-    attackBonus = json['attack_bonus'];
-    dc = json['dc'] != null ? Dc.fromJson(json['dc']) : null;
-    if (json['damage'] != null) {
-      damage = <Damage>[];
-      json['damage'].forEach((v) {
-        damage!.add(Damage.fromJson(v));
-      });
-    }
-    usage = json['usage'] != null ? Usage.fromJson(json['usage']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = this.name;
-    data['multiattack_type'] = this.multiattackType;
-    data['desc'] = this.desc;
-    if (this.actions != null) {
-      data['actions'] = this.actions!.map((v) => v.toJson()).toList();
-    }
-    data['attack_bonus'] = this.attackBonus;
-    if (this.dc != null) {
-      data['dc'] = this.dc!.toJson();
-    }
-    if (this.damage != null) {
-      data['damage'] = this.damage!.map((v) => v.toJson()).toList();
-    }
-    if (this.usage != null) {
-      data['usage'] = this.usage!.toJson();
-    }
-    return data;
-  }
-}
-
-class Actions {
-  String? actionName;
-  int? count;
-  String? type;
-
-  Actions({this.actionName, this.count, this.type});
-
-  Actions.fromJson(Map<String, dynamic> json) {
-    actionName = json['action_name'];
-    count = json['count'];
-    type = json['type'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['action_name'] = actionName;
-    data['count'] = count;
-    data['type'] = type;
-    return data;
-  }
-}
-
-class Damage {
-  Proficiency? damageType;
-  String? damageDice;
-
-  Damage({this.damageType, this.damageDice});
-
-  Damage.fromJson(Map<String, dynamic> json) {
-    damageType = json['damage_type'] != null
-        ? Proficiency.fromJson(json['damage_type'])
-        : null;
-    damageDice = json['damage_dice'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (damageType != null) {
-      data['damage_type'] = damageType!.toJson();
-    }
-    data['damage_dice'] = damageDice;
-    return data;
-  }
-}
-
-class Usage {
-  String? type;
-  int? times;
-
-  Usage({this.type, this.times});
-
-  Usage.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    times = json['times'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['type'] = type;
-    data['times'] = times;
+    data['name'] = name;
+    data['desc'] = desc;
     return data;
   }
 }
@@ -490,31 +317,18 @@ class Usage {
 class LegendaryActions {
   String? name;
   String? desc;
-  int? attackBonus;
-  List<Damage>? damage;
 
-  LegendaryActions({this.name, this.desc, this.attackBonus, this.damage});
+  LegendaryActions({this.name, this.desc});
 
   LegendaryActions.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     desc = json['desc'];
-    attackBonus = json['attack_bonus'];
-    if (json['damage'] != null) {
-      damage = <Damage>[];
-      json['damage'].forEach((v) {
-        damage!.add(Damage.fromJson(v));
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['desc'] = desc;
-    data['attack_bonus'] = attackBonus;
-    if (damage != null) {
-      data['damage'] = damage!.map((v) => v.toJson()).toList();
-    }
     return data;
   }
 }

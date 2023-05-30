@@ -1,10 +1,12 @@
 import 'package:dnd_app/design_system/app_design/base_widgets/dnd_default_text.dart';
+import 'package:dnd_app/domain/models/monster/monster.dart';
+import 'package:dnd_app/presentation/bestiary/bloc/bestiary_event.dart';
 import 'package:dnd_app/presentation/bestiary/bloc/bestiary_state.dart';
 import 'package:dnd_app/presentation/bestiary/widgets/bestiary_empty_list.dart';
 import 'package:dnd_app/presentation/bestiary/widgets/bestiary_error.dart';
 import 'package:dnd_app/presentation/bestiary/widgets/bestiary_loading.dart';
 import 'package:dnd_app/presentation/bestiary/widgets/bestiary_search_content.dart';
-import 'package:dnd_app/presentation/bestiary/widgets/betiary_list.dart';
+import 'package:dnd_app/presentation/bestiary/widgets/bestiary_list.dart';
 import 'package:dnd_app/values/app_dimensions.dart';
 import 'package:dnd_app/values/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -25,28 +27,51 @@ class _BestiaryPageState extends State<BestiaryPage> {
   final TextEditingController controller = TextEditingController();
   final themeState = Get.find<DarkThemeProvider>();
 
+  List<Results> list = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMonsterList();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  void _loadMonsterList() {
+    final bloc = context.read<BestiaryBloc>();
+    bloc.add(BestiaryInitEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Column(
-        children: [
-          const SizedBox(height: AppDimensions.marginBig),
-          _pageTitle(),
-          const SizedBox(height: 30),
-          BestiarySearchContent(controller: controller),
-          const SizedBox(height: 20),
-          Expanded(child: _pageContent())
-        ],
-      )),
+    return BlocListener<BestiaryBloc, BestiaryState>(
+      listener: (context, state) {
+        _onBestiaryStateChanged(state, context);
+      },
+      child: SafeArea(
+        child: Scaffold(
+            body: Column(
+          children: [
+            const SizedBox(height: AppDimensions.marginBig),
+            _pageTitle(),
+            const SizedBox(height: 30),
+            BestiarySearchContent(controller: controller, monster: list),
+            const SizedBox(height: 20),
+            Expanded(child: _pageContent())
+          ],
+        )),
+      ),
     );
   }
 
   Widget _pageContent() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const BestiaryLoading(),
+        _blocBuilder(),
         Obx(
           () => SwitchListTile(
             secondary: Icon(
@@ -74,18 +99,17 @@ class _BestiaryPageState extends State<BestiaryPage> {
 
   Widget _blocBuilder() {
     return BlocBuilder<BestiaryBloc, BestiaryState>(builder: (context, state) {
-      return _errorContent();
-    });
-    /*switch (state.runtimeType) {
-        case BestiarySuccessState:
-          return _monsterList();
-        case BestiaryLoadingState:
+      switch (state.status) {
+        case BestiaryStatus.success:
+          return _monsterList(state.monster!);
+        case BestiaryStatus.loading:
           return _loadingContent();
-        case BestiaryErrorState:
+        case BestiaryStatus.error:
           return _errorContent();
         default:
           return _emptyContent();
-      }*/
+      }
+    });
   }
 
   void _onBestiaryStateChanged(BestiaryState state, BuildContext context) {
@@ -106,9 +130,9 @@ class _BestiaryPageState extends State<BestiaryPage> {
     return const BestiaryEmptyList();
   }
 
-  Widget _monsterList() {
-    return const BestiaryList(
-      monsterList: [],
+  Widget _monsterList(Monster monsterList) {
+    return BestiaryList(
+      monsterList: monsterList,
     );
   }
 }

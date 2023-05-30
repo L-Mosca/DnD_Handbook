@@ -1,8 +1,8 @@
 abstract class AppDimensions {
 
   // Default Dimensions
-  static const marginSmall = 10.0;
-  static const marginMini = 14.0;
+  static const marginMini = 10.0;
+  static const marginSmall = 14.0;
   static const marginDefault = 16.0;
   static const marginBig = 20.0;
   static const marginLarge = 24.0;
@@ -10,7 +10,7 @@ abstract class AppDimensions {
   static const marginHuge = 40.0;
 
   // Radius Dimensions
-  static const radiusDefault = 10.0;
+  static const radiusDefault = 8.0;
 
   // Text Dimensions
   static const textSizeMini = 10.0;

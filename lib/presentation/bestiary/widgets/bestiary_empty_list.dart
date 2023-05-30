@@ -16,7 +16,6 @@ class BestiaryEmptyList extends StatefulWidget {
 class _BestiaryEmptyListState extends State<BestiaryEmptyList> {
   @override
   Widget build(BuildContext context) {
-    final themeState = Get.find<DarkThemeProvider>();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -24,20 +23,6 @@ class _BestiaryEmptyListState extends State<BestiaryEmptyList> {
         const SizedBox(height: AppDimensions.marginHuge),
         Image.asset('lib/assets/images/img_empty_list.png'),
         DndDefaultText(text: BuildFlavor.title),
-        Obx(
-          () => SwitchListTile(
-            secondary: Icon(
-              themeState.darkTheme
-                  ? Icons.dark_mode_outlined
-                  : Icons.light_mode_outlined,
-            ),
-            value: themeState.darkTheme,
-            onChanged: (bool value) {
-              themeState.setDarkTheme = value;
-              Get.changeThemeMode(value ? ThemeMode.dark : ThemeMode.light);
-            },
-          ),
-        ),
       ],
     );
   }

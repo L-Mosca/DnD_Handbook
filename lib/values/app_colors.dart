@@ -5,7 +5,7 @@ abstract class AppColors {
   static const canvasDark = Color(0xFF000000);
   static const canvasLight = Color(0xFFFFFFFF);
   static const cardDark = Color(0xFF041324);
-  static const cardLight = Color(0xFFE0DDDD);
+  static const cardLight = Color(0xFFFAFAFA);
   static const schemeSeedDark = Color(0xFF000000);
   static const schemeSeedLight = Color(0xFFFFFFFF);
   static const dialogBackgroundDark = Color(0xFF000000);
@@ -106,4 +106,15 @@ abstract class AppColors {
 
   // Error Color
   static const errorColor = Color(0xFFF85F5E);
+
+  // Alignment Colors
+  static const lawfulGood = Color(0xFF71D2FF);
+  static const neutralGood = Color(0xFF37D269);
+  static const chaoticGood = Color(0xFFFF70A5);
+  static const lawfulNeutral = Color(0xFF7172A8);
+  static const trueNeutral = Color(0xFF8B8B8B);
+  static const chaoticNeutral = Color(0xFFFFD200);
+  static const lawfulEvil = Color(0xFF834DB1);
+  static const neutralEvil = Color(0xFFA37032);
+  static const chaoticEvil = Color(0xFFB90000);
 }

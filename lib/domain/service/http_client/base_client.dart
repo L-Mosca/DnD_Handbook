@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 abstract class BaseClient {
   final _client = http.Client();
 
-  Future<http.Response> getRequest(url, endpoint,
+  Future<String> getRequest(endpoint,
       {contentType = "", Map<String, String>? extraHeaders}) async {
     Map<String, String> headers = {};
 
@@ -15,8 +15,9 @@ abstract class BaseClient {
       headers.addAll(extraHeaders);
     }
 
-    final response =
-        await _client.get(Uri.parse(BuildFlavor.baseUrl), headers: headers);
+    final url = '${BuildFlavor.baseUrl}$endpoint';
+    final response = await _client
+        .get(Uri.parse('${BuildFlavor.baseUrl}$endpoint'), headers: headers);
 
     if (kDebugMode) {
       print("GET -> $url -- ${response.statusCode} ${response.reasonPhrase}");
@@ -24,7 +25,7 @@ abstract class BaseClient {
       print("response ${response.body}");
     }
 
-    return response;
+    return response.body;
   }
 
   Future<http.Response> postRequest(endpoint, Object? requestBody,

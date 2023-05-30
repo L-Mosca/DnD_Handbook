@@ -32,6 +32,7 @@ class DndTextField extends StatelessWidget {
   final double? marginRight;
   final TextEditingController controller;
   final VoidCallback onEditingComplete;
+  final VoidCallback? onChanged;
 
   const DndTextField(
       {Key? key,
@@ -60,7 +61,8 @@ class DndTextField extends StatelessWidget {
       this.iconColorLight,
       this.iconColorDark,
       required this.controller,
-      required this.onEditingComplete})
+      required this.onEditingComplete,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -113,6 +115,9 @@ class DndTextField extends StatelessWidget {
         ]),
         child: TextField(
           onEditingComplete: onEditingComplete,
+          onChanged: (value) {
+            onChanged;
+          },
           controller: controller,
           textInputAction: TextInputAction.search,
           decoration: InputDecoration(

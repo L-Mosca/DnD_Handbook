@@ -1,4 +1,4 @@
-import 'package:dnd_app/presentation/bestiary/beatiary_page.dart';
+import 'package:dnd_app/presentation/bestiary/bestiary_page.dart';
 import 'package:dnd_app/presentation/bestiary/bloc/bestiary_bloc.dart';
 import 'package:dnd_app/presentation/bestiary/bloc/bestiary_event.dart';
 import 'package:dnd_app/presentation/home/bloc/home_bloc.dart';
