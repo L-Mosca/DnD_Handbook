@@ -3,18 +3,24 @@ import 'package:dnd_app/design_system/theme_data/styles.dart';
 import 'package:dnd_app/presentation/home/home_binding.dart';
 import 'package:dnd_app/routes/app_routes.dart';
 import 'package:dnd_app/routes/routes_constants.dart';
+import 'package:dnd_app/values/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:get/get.dart';
 
-class DnDApp extends StatelessWidget {
+class DnDApp extends StatefulWidget {
   const DnDApp({Key? key}) : super(key: key);
 
+  @override
+  State<DnDApp> createState() => _DnDAppState();
+}
+
+class _DnDAppState extends State<DnDApp> {
   @override
   Widget build(BuildContext context) {
     final darkTheme = DarkThemeProvider.to.darkTheme;
 
     return GetMaterialApp(
-      key: key,
       title: 'D&D',
       theme: Styles.themeData(darkTheme, context),
       debugShowCheckedModeBanner: false,
@@ -29,10 +35,18 @@ class DnDApp extends StatelessWidget {
               final darkTheme = snapshot.data ?? false;
               DarkThemeProvider.to.setDarkTheme = darkTheme;
 
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: Styles.themeData(darkTheme, context),
-                home: child,
+              final color = darkTheme
+                  ? AppColors.scaffoldBackgroundDark
+                  : AppColors.scaffoldBackgroundLight;
+
+              FlutterStatusbarcolor.setStatusBarColor(
+                  AppColors.scaffoldBackgroundDark);
+
+              return SafeArea(
+                child: Scaffold(
+                  backgroundColor: color,
+                  body: child,
+                ),
               );
             } else {
               return const CircularProgressIndicator();

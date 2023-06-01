@@ -19,10 +19,10 @@ class AppRoutes {
         name: RoutesConstants.routeHome,
         page: () => BlocProvider(
               create: (_) => HomeBloc()..add(HomeInitEvent()),
-              child: const HomePage(),
+              child: HomePage(),
             ),
         binding: HomeBinding(),
-        transitionDuration: const Duration(milliseconds: 300),
+        transitionDuration: const Duration(milliseconds: 200),
         transition: transition.Transition.native),
     GetPage(
         name: RoutesConstants.routeBestiary,
@@ -31,7 +31,7 @@ class AppRoutes {
               child: const BestiaryPage(),
             ),
         binding: BestiaryBinding(),
-        transitionDuration: const Duration(milliseconds: 300),
+        transitionDuration: const Duration(milliseconds: 200),
         transition: transition.Transition.native)
   ];
 }

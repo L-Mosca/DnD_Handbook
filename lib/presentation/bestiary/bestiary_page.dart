@@ -53,17 +53,16 @@ class _BestiaryPageState extends State<BestiaryPage> {
         _onBestiaryStateChanged(state, context);
       },
       child: SafeArea(
-        child: Scaffold(
-            body: Column(
+        child: Column(
           children: [
-            const SizedBox(height: AppDimensions.marginBig),
-            _pageTitle(),
-            const SizedBox(height: 30),
-            BestiarySearchContent(controller: controller, monster: list),
-            const SizedBox(height: 20),
-            Expanded(child: _pageContent())
+        const SizedBox(height: AppDimensions.marginBig),
+        _pageTitle(),
+        const SizedBox(height: 30),
+        BestiarySearchContent(controller: controller, monster: list),
+        const SizedBox(height: 20),
+        Expanded(child: _pageContent())
           ],
-        )),
+        ),
       ),
     );
   }
