@@ -1,6 +1,6 @@
 import 'package:dnd_app/base/state/base_state.dart';
 
-enum HomeStatus { initial, bestiaryClicked }
+enum HomeStatus { initial, bestiaryClicked, createCharClicked }
 
 class HomeState implements Copyable<HomeState> {
   const HomeState({this.status = HomeStatus.initial});

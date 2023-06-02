@@ -34,6 +34,8 @@ class HomePage extends StatelessWidget {
       return Column(
         children: [
           const SizedBox(height: 100),
+          _createCharItem(context),
+          const SizedBox(height: AppDimensions.marginDefault),
           _bestiaryItem(context),
           Obx(
             () => SwitchListTile(
@@ -52,6 +54,15 @@ class HomePage extends StatelessWidget {
         ],
       );
     });
+  }
+
+  Widget _createCharItem(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.read<HomeBloc>().add(HomeCreateCharClickedEvent());
+      },
+      child: _menuItems('lib/assets/images/ic_pen.png', AppStrings.createChar),
+    );
   }
 
   Widget _bestiaryItem(BuildContext context) {
@@ -88,9 +99,13 @@ class HomePage extends StatelessWidget {
   }
 
   void _onHomeClicked(BuildContext context, HomeState state) {
+    // ignore: missing_enum_constant_in_switch
     switch (state.status) {
       case HomeStatus.bestiaryClicked:
         Get.toNamed(RoutesConstants.routeBestiary);
+        break;
+      case HomeStatus.createCharClicked:
+        Get.toNamed(RoutesConstants.routeCreateChar);
         break;
     }
   }

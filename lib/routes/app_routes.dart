@@ -1,6 +1,9 @@
 import 'package:dnd_app/presentation/bestiary/bestiary_page.dart';
 import 'package:dnd_app/presentation/bestiary/bloc/bestiary_bloc.dart';
 import 'package:dnd_app/presentation/bestiary/bloc/bestiary_event.dart';
+import 'package:dnd_app/presentation/create_char/bloc/create_char_bloc.dart';
+import 'package:dnd_app/presentation/create_char/create_char_binding.dart';
+import 'package:dnd_app/presentation/create_char/create_char_page.dart';
 import 'package:dnd_app/presentation/home/bloc/home_bloc.dart';
 import 'package:dnd_app/presentation/home/bloc/home_event.dart';
 import 'package:dnd_app/presentation/home/home_binding.dart';
@@ -11,6 +14,7 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart'
     as transition;
 
 import '../presentation/bestiary/bestiary_binding.dart';
+import '../presentation/create_char/bloc/create_char_event.dart';
 import '../presentation/home/home_page.dart';
 
 class AppRoutes {
@@ -32,6 +36,16 @@ class AppRoutes {
             ),
         binding: BestiaryBinding(),
         transitionDuration: const Duration(milliseconds: 200),
-        transition: transition.Transition.native)
+        transition: transition.Transition.native),
+    GetPage(
+        name: RoutesConstants.routeCreateChar,
+        page: () => BlocProvider(
+              create: (_) =>
+                  CreateCharBloc(Get.find())..add(CreateCharInitEvent()),
+              child: const CreateCharPage(),
+            ),
+        binding: CreateCharBinding(),
+        transitionDuration: const Duration(milliseconds: 200),
+        transition: transition.Transition.native),
   ];
 }

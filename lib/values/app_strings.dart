@@ -4,4 +4,7 @@ abstract class AppStrings {
   static const bestiarySearchHint = 'Search by name';
   static const bestiaryPageTitle = 'Bestiary';
   static const bestiaryErrorMessage = 'Something went wrong.\nPlease try again.';
+
+  // Create Character Page
+  static const createChar = 'Create Character';
 }
