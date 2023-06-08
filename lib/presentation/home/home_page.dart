@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../design_system/app_design/base_widgets/dnd_default_button.dart';
 import '../../design_system/theme_data/dark_theme_provider.dart';
 import 'bloc/home_bloc.dart';
 import 'bloc/home_state.dart';
@@ -50,7 +51,8 @@ class HomePage extends StatelessWidget {
                 Get.changeThemeMode(value ? ThemeMode.dark : ThemeMode.light);
               },
             ),
-          )
+          ),
+          const SizedBox(height: 50),
         ],
       );
     });

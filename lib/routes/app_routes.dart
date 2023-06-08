@@ -7,6 +7,10 @@ import 'package:dnd_app/presentation/create_char/create_char_page.dart';
 import 'package:dnd_app/presentation/home/bloc/home_bloc.dart';
 import 'package:dnd_app/presentation/home/bloc/home_event.dart';
 import 'package:dnd_app/presentation/home/home_binding.dart';
+import 'package:dnd_app/presentation/race_detail/bloc/race_detail_bloc.dart';
+import 'package:dnd_app/presentation/race_detail/bloc/race_detail_event.dart';
+import 'package:dnd_app/presentation/race_detail/race_detail_binding.dart';
+import 'package:dnd_app/presentation/race_detail/race_detail_page.dart';
 import 'package:dnd_app/routes/routes_constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -47,5 +51,18 @@ class AppRoutes {
         binding: CreateCharBinding(),
         transitionDuration: const Duration(milliseconds: 200),
         transition: transition.Transition.native),
+    GetPage(
+        name: RoutesConstants.routeRaceDetail,
+        page: () => BlocProvider(
+            create: (_) {
+              var index =
+                  Get.arguments[RoutesConstants.raceDetailArgumentIndex];
+              return RaceDetailBloc(Get.find())
+                ..add(RaceDetailInitEvent(index: index));
+            },
+            child: const RaceDetailPage()),
+        binding: RaceDetailBinding(),
+        transitionDuration: const Duration(milliseconds: 200),
+        transition: transition.Transition.native)
   ];
 }

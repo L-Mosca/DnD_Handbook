@@ -10,4 +10,12 @@ class ClientHelper extends BaseClient {
     return await getRequest(
         '${ClientConstants.fetchMonsterDetail}$monsterIndex');
   }
+
+  getRaceList() async {
+    return await getRequest(ClientConstants.fetchRaces);
+  }
+
+  getRaceDetail(String raceIndex) async {
+    return await getRequest('${ClientConstants.fetchRaces}/$raceIndex');
+  }
 }

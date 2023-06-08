@@ -25,4 +25,15 @@ abstract class AppConstants {
   static const ooze = 'ooze';
   static const plant = 'plant';
   static const undead = 'undead';
+
+  // Races
+  static const raceDragonBorn = 'dragonborn';
+  static const raceDwarf = 'dwarf';
+  static const raceElf = 'elf';
+  static const raceGnome = 'gnome';
+  static const raceHalfElf = 'half-elf';
+  static const raceHalfOrc = 'half-orc';
+  static const raceHalfling = 'halfling';
+  static const raceHuman = 'human';
+  static const raceTiefling = 'tiefling';
 }

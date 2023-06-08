@@ -93,3 +93,43 @@ extension StringToIcon on String {
     }
   }
 }
+
+extension StringExtension on String {
+  String getRaceImage() {
+    String imagePath = '';
+    switch (this) {
+      case AppConstants.raceDragonBorn:
+        imagePath = 'lib/assets/images/img_race_dragonborn.png';
+        break;
+      case AppConstants.raceDwarf:
+        imagePath = 'lib/assets/images/img_race_dwarf.png';
+        break;
+      case AppConstants.raceElf:
+        imagePath = 'lib/assets/images/img_race_elf.png';
+        break;
+      case AppConstants.raceGnome:
+        imagePath = 'lib/assets/images/img_race_gnome.png';
+        break;
+      case AppConstants.raceHalfElf:
+        imagePath = 'lib/assets/images/img_race_half_elf.png';
+        break;
+      case AppConstants.raceHalfOrc:
+        imagePath = 'lib/assets/images/img_race_half_orc.png';
+        break;
+      case AppConstants.raceHalfling:
+        imagePath = 'lib/assets/images/img_race_halfling.png';
+        break;
+      case AppConstants.raceHuman:
+        imagePath = 'lib/assets/images/img_race_human.png';
+        break;
+      case AppConstants.raceTiefling:
+        imagePath = 'lib/assets/images/img_race_tiefling.png';
+        break;
+      default:
+        imagePath = 'lib/assets/images/';
+        break;
+    }
+
+    return imagePath;
+  }
+}

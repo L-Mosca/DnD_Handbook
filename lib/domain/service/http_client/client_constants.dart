@@ -11,4 +11,7 @@ abstract class ClientConstants {
   // Monsters
   static const fetchMonsters = '/api/monsters';
   static const fetchMonsterDetail = '/api/monsters/';
+
+  // Race
+  static const fetchRaces = '/api/races/';
 }

@@ -24,6 +24,7 @@ dependencies:
   flutter_statusbarcolor_ns: ^0.5.0
   flutter_staggered_animations: ^1.1.1
   animated_bottom_navigation_bar: ^1.2.0
+  flutter_breadcrumb: ^1.0.1
 
 flutter_native_splash:
   image: "lib/assets/images/img_dnd_splash.jpg"
