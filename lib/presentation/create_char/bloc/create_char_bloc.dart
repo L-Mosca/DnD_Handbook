@@ -1,6 +1,7 @@
 import 'package:dnd_app/domain/repositories/character/character_repository.dart';
 import 'package:dnd_app/presentation/create_char/bloc/create_char_event.dart';
 import 'package:dnd_app/presentation/create_char/bloc/create_char_state.dart';
+import 'package:dnd_app/presentation/create_char/widgets/select_class/select_class.dart';
 import 'package:dnd_app/presentation/create_char/widgets/select_race/select_race.dart';
 import 'package:dnd_app/values/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ class CreateCharBloc extends Bloc<CreateCharEvent, CreateCharState> {
   CreateCharBloc(this._characterRepository) : super(const CreateCharState()) {
     on<CreateCharInitEvent>(_onLoad);
     on<SelectRaceEvent>(_fetchRace);
-    on<AddContainerEvent>(_addContainer);
     on<RaceClickedEvent>(_onRaceSelected);
     on<CreateCharNextStep>(_callNextPage);
     on<CreateCharBackStep>(_callLastPage);
@@ -43,18 +43,6 @@ class CreateCharBloc extends Bloc<CreateCharEvent, CreateCharState> {
     emitter(_createCharState);
   }
 
-  void _addContainer(
-      AddContainerEvent event, Emitter<CreateCharState> emitter) async {
-    var newContainer = Container(width: 200, height: 200, color: Colors.blue);
-    var actualList = _createCharState.widgetList;
-    actualList.add(newContainer);
-
-    _createCharState = _createCharState.copyWith(
-        createCharStatus: CreateCharStatus.addContainer,
-        pageViewWidgets: actualList);
-    emitter(_createCharState);
-  }
-
   void _onRaceSelected(
       RaceClickedEvent event, Emitter<CreateCharState> emitter) async {
     _createCharState = _createCharState.copyWith(
@@ -64,12 +52,14 @@ class CreateCharBloc extends Bloc<CreateCharEvent, CreateCharState> {
   }
 
   void _callNextPage(
-      CreateCharNextStep event, Emitter<CreateCharState> emitter) {
+      CreateCharNextStep event, Emitter<CreateCharState> emitter) async {
     var widgetList = _createCharState.widgetList;
     var pageIndex = _createCharState.pageIndex ?? 0;
     if (pageIndex == AppConstants.indexSelectRace) {
       if (pageIndex == widgetList.length - 1) {
-        widgetList.add(Container(color: Colors.greenAccent));
+        // perform class request and instance select_class
+        var classList = await _characterRepository.fetchClassList();
+        widgetList.add(SelectClass(classList: classList));
         _createCharState = _createCharState.copyWith(
             pageViewWidgets: widgetList,
             createCharPageIndex: pageIndex + 1,
@@ -93,10 +83,5 @@ class CreateCharBloc extends Bloc<CreateCharEvent, CreateCharState> {
           createCharPageIndex: pageIndex - 1);
       emitter(_createCharState);
     }
-  }
-
-  bool _isValidContent(
-      CreateCharNextStep event, Emitter<CreateCharState> emitter) {
-    return true;
   }
 }

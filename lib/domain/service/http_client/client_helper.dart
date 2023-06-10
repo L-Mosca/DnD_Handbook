@@ -18,4 +18,8 @@ class ClientHelper extends BaseClient {
   getRaceDetail(String raceIndex) async {
     return await getRequest('${ClientConstants.fetchRaces}/$raceIndex');
   }
+
+  getClassList() async {
+    return await getRequest(ClientConstants.fetchClass);
+  }
 }

@@ -6,7 +6,7 @@ abstract class ClientConstants {
   // --- Endpoint constants ---
 
   // Classes
-  static const classes = '/api/classes/';
+  static const fetchClass = '/api/classes/';
 
   // Monsters
   static const fetchMonsters = '/api/monsters';

@@ -40,4 +40,18 @@ abstract class AppConstants {
   // Create char Index
   static const indexSelectRace = 0;
   static const indexSelectClass = 1;
+
+  // Class
+  static const classBarbarian = 'barbarian';
+  static const classBard = 'bard';
+  static const classCleric = 'cleric';
+  static const classDruid = 'druid';
+  static const classFighter = 'fighter';
+  static const classMonk = 'monk';
+  static const classPaladin = 'paladin';
+  static const classRanger = 'ranger';
+  static const classRogue = 'rogue';
+  static const classSorcerer = 'sorcerer';
+  static const classWarlock = 'warlock';
+  static const classWizard = 'wizard';
 }

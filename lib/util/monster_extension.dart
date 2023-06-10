@@ -96,40 +96,60 @@ extension StringToIcon on String {
 
 extension StringExtension on String {
   String getRaceImage() {
-    String imagePath = '';
     switch (this) {
       case AppConstants.raceDragonBorn:
-        imagePath = 'lib/assets/images/img_race_dragonborn.png';
-        break;
+        return 'lib/assets/images/img_race_dragonborn.png';
       case AppConstants.raceDwarf:
-        imagePath = 'lib/assets/images/img_race_dwarf.png';
-        break;
+        return 'lib/assets/images/img_race_dwarf.png';
       case AppConstants.raceElf:
-        imagePath = 'lib/assets/images/img_race_elf.png';
-        break;
+        return 'lib/assets/images/img_race_elf.png';
       case AppConstants.raceGnome:
-        imagePath = 'lib/assets/images/img_race_gnome.png';
-        break;
+        return 'lib/assets/images/img_race_gnome.png';
       case AppConstants.raceHalfElf:
-        imagePath = 'lib/assets/images/img_race_half_elf.png';
-        break;
+        return 'lib/assets/images/img_race_half_elf.png';
       case AppConstants.raceHalfOrc:
-        imagePath = 'lib/assets/images/img_race_half_orc.png';
-        break;
+        return 'lib/assets/images/img_race_half_orc.png';
       case AppConstants.raceHalfling:
-        imagePath = 'lib/assets/images/img_race_halfling.png';
-        break;
+        return 'lib/assets/images/img_race_halfling.png';
       case AppConstants.raceHuman:
-        imagePath = 'lib/assets/images/img_race_human.png';
-        break;
+        return 'lib/assets/images/img_race_human.png';
       case AppConstants.raceTiefling:
-        imagePath = 'lib/assets/images/img_race_tiefling.png';
-        break;
+        return 'lib/assets/images/img_race_tiefling.png';
       default:
-        imagePath = 'lib/assets/images/';
-        break;
+        return '';
     }
+  }
+}
 
-    return imagePath;
+extension ClassToImage on String {
+  String getClassImage() {
+    switch (this) {
+      case AppConstants.classBarbarian:
+        return 'lib/assets/images/img_class_barbarian.png';
+      case AppConstants.classBard:
+        return 'lib/assets/images/img_class_bard.png';
+      case AppConstants.classCleric:
+        return 'lib/assets/images/img_class_cleric.png';
+      case AppConstants.classDruid:
+        return 'lib/assets/images/img_class_druid.png';
+      case AppConstants.classFighter:
+        return 'lib/assets/images/img_class_fighter.png';
+      case AppConstants.classMonk:
+        return 'lib/assets/images/img_class_monk.png';
+      case AppConstants.classPaladin:
+        return 'lib/assets/images/img_class_paladin.png';
+      case AppConstants.classRanger:
+        return 'lib/assets/images/img_class_ranger.png';
+      case AppConstants.classRogue:
+        return 'lib/assets/images/img_class_rogue.png';
+      case AppConstants.classSorcerer:
+        return 'lib/assets/images/img_class_sorcerer.png';
+      case AppConstants.classWarlock:
+        return 'lib/assets/images/img_class_warlock.png';
+      case AppConstants.classWizard:
+        return 'lib/assets/images/img_class_wizard.png';
+      default:
+        return '';
+    }
   }
 }
