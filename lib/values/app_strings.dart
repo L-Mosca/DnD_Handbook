@@ -7,4 +7,6 @@ abstract class AppStrings {
 
   // Create Character Page
   static const createChar = 'Create Character';
+  static const next = 'Next';
+  static const back = 'Back';
 }

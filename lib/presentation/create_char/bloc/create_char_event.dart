@@ -13,3 +13,15 @@ class RaceClickedEvent extends CreateCharEvent {
 
   RaceClickedEvent({this.race});
 }
+
+class CreateCharNextStep extends CreateCharEvent {
+  final double? pageIndex;
+
+  CreateCharNextStep({this.pageIndex});
+}
+
+class CreateCharBackStep extends CreateCharEvent {
+  final double? pageIndex;
+
+  CreateCharBackStep({this.pageIndex});
+}

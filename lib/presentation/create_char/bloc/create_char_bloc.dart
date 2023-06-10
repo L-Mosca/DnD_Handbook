@@ -2,6 +2,7 @@ import 'package:dnd_app/domain/repositories/character/character_repository.dart'
 import 'package:dnd_app/presentation/create_char/bloc/create_char_event.dart';
 import 'package:dnd_app/presentation/create_char/bloc/create_char_state.dart';
 import 'package:dnd_app/presentation/create_char/widgets/select_race/select_race.dart';
+import 'package:dnd_app/values/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +15,8 @@ class CreateCharBloc extends Bloc<CreateCharEvent, CreateCharState> {
     on<SelectRaceEvent>(_fetchRace);
     on<AddContainerEvent>(_addContainer);
     on<RaceClickedEvent>(_onRaceSelected);
+    on<CreateCharNextStep>(_callNextPage);
+    on<CreateCharBackStep>(_callLastPage);
   }
 
   void _onLoad(
@@ -43,7 +46,7 @@ class CreateCharBloc extends Bloc<CreateCharEvent, CreateCharState> {
   void _addContainer(
       AddContainerEvent event, Emitter<CreateCharState> emitter) async {
     var newContainer = Container(width: 200, height: 200, color: Colors.blue);
-    var actualList = state.widgetList;
+    var actualList = _createCharState.widgetList;
     actualList.add(newContainer);
 
     _createCharState = _createCharState.copyWith(
@@ -58,5 +61,42 @@ class CreateCharBloc extends Bloc<CreateCharEvent, CreateCharState> {
         createCharStatus: CreateCharStatus.raceClicked,
         createCharRaceSelected: event.race);
     emitter(_createCharState);
+  }
+
+  void _callNextPage(
+      CreateCharNextStep event, Emitter<CreateCharState> emitter) {
+    var widgetList = _createCharState.widgetList;
+    var pageIndex = _createCharState.pageIndex ?? 0;
+    if (pageIndex == AppConstants.indexSelectRace) {
+      if (pageIndex == widgetList.length - 1) {
+        widgetList.add(Container(color: Colors.greenAccent));
+        _createCharState = _createCharState.copyWith(
+            pageViewWidgets: widgetList,
+            createCharPageIndex: pageIndex + 1,
+            createCharStatus: CreateCharStatus.next);
+        emitter(_createCharState);
+      } else {
+        _createCharState = _createCharState.copyWith(
+            createCharPageIndex: pageIndex + 1,
+            createCharStatus: CreateCharStatus.next);
+        emitter(_createCharState);
+      }
+    }
+  }
+
+  void _callLastPage(
+      CreateCharBackStep event, Emitter<CreateCharState> emitter) {
+    var pageIndex = _createCharState.pageIndex ?? 0;
+    if (pageIndex != AppConstants.indexSelectRace) {
+      _createCharState = _createCharState.copyWith(
+          createCharStatus: CreateCharStatus.back,
+          createCharPageIndex: pageIndex - 1);
+      emitter(_createCharState);
+    }
+  }
+
+  bool _isValidContent(
+      CreateCharNextStep event, Emitter<CreateCharState> emitter) {
+    return true;
   }
 }

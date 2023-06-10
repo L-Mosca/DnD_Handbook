@@ -36,4 +36,8 @@ abstract class AppConstants {
   static const raceHalfling = 'halfling';
   static const raceHuman = 'human';
   static const raceTiefling = 'tiefling';
+
+  // Create char Index
+  static const indexSelectRace = 0;
+  static const indexSelectClass = 1;
 }

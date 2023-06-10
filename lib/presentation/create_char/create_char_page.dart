@@ -55,10 +55,20 @@ class _CreateCharPageState extends State<CreateCharPage> {
   }
 
   void _onCreateCharClicked(BuildContext context, CreateCharState state) {
-    if (state.status == CreateCharStatus.raceClicked) {
-      Get.toNamed(RoutesConstants.routeRaceDetail, arguments: {
-        RoutesConstants.raceDetailArgumentIndex: state.raceSelected!.index
-      });
+    switch (state.status) {
+      case CreateCharStatus.raceClicked:
+        Get.toNamed(RoutesConstants.routeRaceDetail, arguments: {
+          RoutesConstants.raceDetailArgumentIndex: state.raceSelected!.index
+        });
+        break;
+      case CreateCharStatus.back:
+        _pageController.jumpToPage((state.pageIndex! - 1).toInt());
+        break;
+      case CreateCharStatus.next:
+        _pageController.jumpToPage(state.pageIndex!.toInt());
+        break;
+      default:
+        break;
     }
   }
 
@@ -78,6 +88,7 @@ class _CreateCharPageState extends State<CreateCharPage> {
   Widget _pageList() {
     return Expanded(
       child: PageView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         onPageChanged: (int index) {
           _onPageChanged(index);
@@ -91,14 +102,45 @@ class _CreateCharPageState extends State<CreateCharPage> {
   }
 
   Widget _pageButton() {
-    return Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.marginExtraBig),
-        child: DndDefaultButton(
-          onPressed: () {
-            context.read<CreateCharBloc>().add(AddContainerEvent());
-          },
-          text: 'Botão de Teste',
-        ));
+    return Row(
+      children: [
+        _backwardButton(),
+        _forwardButton(),
+      ],
+    );
+  }
+
+  Widget _forwardButton() {
+    return Expanded(
+      child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppDimensions.marginExtraBig),
+          child: DndDefaultButton(
+            onPressed: () {
+              context
+                  .read<CreateCharBloc>()
+                  .add(CreateCharNextStep(pageIndex: _pageController.page));
+            },
+            text: AppStrings.next,
+          )),
+    );
+  }
+
+  Widget _backwardButton() {
+    return Expanded(
+      child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppDimensions.marginExtraBig),
+          child: DndDefaultButton(
+            onPressed: () {
+              setState(() {
+                context
+                    .read<CreateCharBloc>()
+                    .add(CreateCharBackStep(pageIndex: _pageController.page));
+              });
+            },
+            text: AppStrings.back,
+          )),
+    );
   }
 }
