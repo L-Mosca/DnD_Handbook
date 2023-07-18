@@ -4,10 +4,13 @@ abstract class RoutesConstants {
   static const routeBestiary = '/bestiary';
   static const routeCreateChar = '/createChar';
   static const routeRaceDetail = '/raceDetail';
-
+  static const routeMonsterDetail = '/monsterDetail';
 
   // Routes Keys
 
   // Race Detail Arguments Keys
-  static const raceDetailArgumentIndex = 'RaceDetailArgs.raceIndex';
+  static const argumentRaceDetailIndex = 'RaceDetailArgs.raceIndex';
+
+  // Monster Details Arguments Keys
+  static const argumentMonsterDetailIndex = 'MonsterDetailArgs.monsterIndex';
 }

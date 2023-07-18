@@ -25,6 +25,8 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   animated_bottom_navigation_bar: ^1.2.0
   flutter_breadcrumb: ^1.0.1
+  firebase_analytics: ^10.4.3
+  firebase_core: ^2.14.0
 
 flutter_native_splash:
   image: "lib/assets/images/img_dnd_splash.jpg"

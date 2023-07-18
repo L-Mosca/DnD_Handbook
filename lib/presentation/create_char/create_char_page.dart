@@ -58,7 +58,7 @@ class _CreateCharPageState extends State<CreateCharPage> {
     switch (state.status) {
       case CreateCharStatus.raceClicked:
         Get.toNamed(RoutesConstants.routeRaceDetail, arguments: {
-          RoutesConstants.raceDetailArgumentIndex: state.raceSelected!.index
+          RoutesConstants.argumentRaceDetailIndex: state.raceSelected!.index
         });
         break;
       case CreateCharStatus.back:

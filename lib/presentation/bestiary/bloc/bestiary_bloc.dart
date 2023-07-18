@@ -18,6 +18,7 @@ class BestiaryBloc extends Bloc<BestiaryEvent, BestiaryState> {
     _bestiaryState =
         _bestiaryState.copyWith(bestiaryStatus: BestiaryStatus.loading);
     emitter(_bestiaryState);
+
     var monster = await _monsterRepository.fetchMonsters();
 
     if (monster != null) {
