@@ -25,24 +25,23 @@ class MonsterDetail {
   List<Proficiencies>? proficiencies;
   @JsonKey(name: 'damage_vulnerabilities')
   List<String>? damageVulnerabilities;
-  @JsonKey(name: 'damage_resistance')
+  @JsonKey(name: 'damage_resistances')
   List<String>? damageResistances;
   List<String>? damageImmunities;
-  //@JsonKey(name: 'condition_immunities')
-  //List<String>? conditionImmunities;
+  @JsonKey(name: 'condition_immunities')
+  List<ConditionImmunities>? conditionImmunities;
   Senses? senses;
   String? languages;
   num? challengeRating;
   int? xp;
   @JsonKey(name: 'special_abilities')
   List<SpecialAbilities>? specialAbilities;
-  List<Actions>? actions;
+  List<MonsterActions>? actions;
   @JsonKey(name: 'legendary_actions')
   List<LegendaryActions>? legendaryActions;
   String? url;
   String? image;
   String? subtype;
-
 
 /*  @override
   String toString() {
@@ -77,7 +76,7 @@ class MonsterDetail {
     this.damageVulnerabilities,
     this.damageResistances,
     this.damageImmunities,
-    //this.conditionImmunities,
+    this.conditionImmunities,
     this.senses,
     this.languages,
     this.challengeRating,
@@ -86,6 +85,8 @@ class MonsterDetail {
     this.actions,
     this.legendaryActions,
     this.url,
+    this.image,
+    this.subtype,
   });
 
   MonsterDetail.fromJson(Map<String, dynamic> json) {
@@ -125,9 +126,12 @@ class MonsterDetail {
     damageImmunities = json['damage_immunities'] != null
         ? List<String>.from(json['damage_immunities'])
         : null;
-    //conditionImmunities = json['condition_immunities'] != null
-    //    ? List<String>.from(json['condition_immunities'])
-    //    : null;
+    if (json['condition_immunities'] != null) {
+      conditionImmunities = <ConditionImmunities>[];
+      json['condition_immunities'].forEach((v) {
+        conditionImmunities!.add(ConditionImmunities.fromJson(v));
+      });
+    }
     senses = json['senses'] != null ? Senses.fromJson(json['senses']) : null;
     languages = json['languages'];
     challengeRating = json['challenge_rating'];
@@ -139,9 +143,9 @@ class MonsterDetail {
       });
     }
     if (json['actions'] != null) {
-      actions = <Actions>[];
+      actions = <MonsterActions>[];
       json['actions'].forEach((v) {
-        actions!.add(Actions.fromJson(v));
+        actions!.add(MonsterActions.fromJson(v));
       });
     }
     if (json['legendary_actions'] != null) {
@@ -151,6 +155,8 @@ class MonsterDetail {
       });
     }
     url = json['url'];
+    image = json['image'];
+    subtype = json['subtype'];
   }
 
   Map<String, dynamic> toJson() {
@@ -179,7 +185,7 @@ class MonsterDetail {
     data['damage_vulnerabilities'] = damageVulnerabilities;
     data['damage_resistances'] = damageResistances;
     data['damage_immunities'] = damageImmunities;
-    //data['condition_immunities'] = conditionImmunities;
+    data['condition_immunities'] = conditionImmunities;
     data['senses'] = senses != null ? senses!.toJson() : null;
     data['languages'] = languages;
     data['challenge_rating'] = challengeRating;
@@ -196,6 +202,8 @@ class MonsterDetail {
           legendaryActions!.map((v) => v.toJson()).toList();
     }
     data['url'] = url;
+    data['image'] = image;
+    data['subtype'] = subtype;
     return data;
   }
 }
@@ -257,6 +265,34 @@ class Proficiencies {
   }
 }
 
+@JsonSerializable()
+class ConditionImmunities {
+  String? index;
+  String? name;
+  String? url;
+
+  ConditionImmunities({this.index, this.name, this.url});
+
+  ConditionImmunities.fromJson(Map<String, dynamic> json) {
+    index = json['index'];
+    name = json['name'];
+    url = json['url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['index'] = index;
+    data['name'] = name;
+    data['url'] = url;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return 'ConditionImmunities{index: $index, name: $name, url: $url}';
+  }
+}
+
 class Senses {
   String? darkvision;
   int? passivePerception;
@@ -295,13 +331,14 @@ class SpecialAbilities {
   }
 }
 
-class Actions {
+@JsonSerializable()
+class MonsterActions {
   String? name;
   String? desc;
 
-  Actions({this.name, this.desc});
+  MonsterActions({this.name, this.desc});
 
-  Actions.fromJson(Map<String, dynamic> json) {
+  MonsterActions.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     desc = json['desc'];
   }
