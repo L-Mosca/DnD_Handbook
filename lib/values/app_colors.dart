@@ -58,4 +58,8 @@ abstract class AppColors {
   static const lawfulEvil = Color(0xFF834DB1);
   static const neutralEvil = Color(0xFFA37032);
   static const chaoticEvil = Color(0xFFB90000);
+
+  // Monster Detail Color
+  static const monsterDetailFontLight = Color(0XFF852714);
+  static const monsterDetailFontDark = Color(0XFF852714);
 }

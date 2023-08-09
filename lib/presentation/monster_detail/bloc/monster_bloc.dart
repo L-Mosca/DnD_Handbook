@@ -11,8 +11,32 @@ class MonsterBloc extends Bloc<MonsterEvent, MonsterState> {
     on<MonsterInitEvent>(_onInitEvent);
   }
 
-  void _onInitEvent(MonsterInitEvent event, Emitter<MonsterState> emitter) async {
-    _monsterState = _monsterState.copyWith(monsterStatus: MonsterStatus.loading);
+  void _onInitEvent(
+      MonsterInitEvent event, Emitter<MonsterState> emitter) async {
+    _monsterState =
+        _monsterState.copyWith(monsterStatus: MonsterStatus.loading);
     emitter(_monsterState);
+
+    await Future.delayed(const Duration(milliseconds: 1000));
+
+    try {
+      final monsterDetail =
+          await _monsterRepository.fetchMonsterDetail(event.monsterIndex);
+
+      if (monsterDetail == null) {
+        _monsterState =
+            _monsterState.copyWith(monsterStatus: MonsterStatus.error);
+        emitter(_monsterState);
+      } else {
+        _monsterState = _monsterState.copyWith(
+            monsterStatus: MonsterStatus.success,
+            cMonsterDetail: monsterDetail);
+        emitter(_monsterState);
+      }
+    } catch (e) {
+      _monsterState =
+          _monsterState.copyWith(monsterStatus: MonsterStatus.error);
+      emitter(_monsterState);
+    }
   }
 }
