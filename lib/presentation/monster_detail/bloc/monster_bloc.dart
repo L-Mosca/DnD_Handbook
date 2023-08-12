@@ -17,7 +17,7 @@ class MonsterBloc extends Bloc<MonsterEvent, MonsterState> {
         _monsterState.copyWith(monsterStatus: MonsterStatus.loading);
     emitter(_monsterState);
 
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(seconds: 1));
 
     try {
       final monsterDetail =

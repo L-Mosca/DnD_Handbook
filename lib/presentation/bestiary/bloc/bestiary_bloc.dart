@@ -34,16 +34,26 @@ class BestiaryBloc extends Bloc<BestiaryEvent, BestiaryState> {
 
   void _onFilter(
       BestiaryFilterEvent event, Emitter<BestiaryState> emitter) async {
-    if (event.monster?.isEmpty == true) {
-      _bestiaryState =
-          _bestiaryState.copyWith(bestiaryStatus: BestiaryStatus.empty);
-      emitter(_bestiaryState);
-    } else {
-      var newMonster = _bestiaryState.monster;
-      newMonster?.results = event.monster;
-      _bestiaryState = _bestiaryState.copyWith(
-          bestiaryStatus: BestiaryStatus.success, monster: newMonster);
-      emitter(_bestiaryState);
+    final query = event.query;
+    final list = _bestiaryState.monster?.results;
+
+    if (list != null && list.isNotEmpty) {
+      if (query.isNotEmpty) {
+        final suggestion = list.where((element) {
+          final monsters = element.name?.toLowerCase();
+          final input = query.toLowerCase();
+          return monsters?.contains(input) == true;
+        }).toList();
+
+        _bestiaryState = _bestiaryState.copyWith(
+            bestiaryStatus: BestiaryStatus.filter, cFilterList: suggestion);
+        emitter(_bestiaryState);
+      } else {
+        _bestiaryState = _bestiaryState.copyWith(
+            bestiaryStatus: BestiaryStatus.filter,
+            cFilterList: _bestiaryState.monster?.results);
+        emitter(_bestiaryState);
+      }
     }
   }
 }

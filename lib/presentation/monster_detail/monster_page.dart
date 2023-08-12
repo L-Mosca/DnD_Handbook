@@ -62,13 +62,13 @@ class _MonsterPageState extends State<MonsterPage> {
   }
 
   Widget _pageContent(MonsterDetail monsterDetail) {
-    _timer = Timer(const Duration(milliseconds: 300), () {
+    _timer = Timer(const Duration(milliseconds: 200), () {
       setState(() => _contentOpacity = 1.0);
     });
 
     return AnimatedOpacity(
       opacity: _contentOpacity,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
       child: Container(
           height: MediaQuery.of(context).size.height,

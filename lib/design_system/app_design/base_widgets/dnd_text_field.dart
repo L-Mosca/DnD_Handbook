@@ -5,7 +5,12 @@ import 'package:dnd_app/values/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DndTextField extends StatelessWidget {
+class DndTextField extends StatefulWidget {
+  final FontWeight? fontWeight;
+  final FontStyle? fontStyle;
+  final double? fontSize;
+  final Color? fontColorDark;
+  final Color? fontColorLight;
   final String? hintText;
   final Color? hintTextColorLight;
   final Color? hintTextColorDark;
@@ -32,7 +37,9 @@ class DndTextField extends StatelessWidget {
   final double? marginRight;
   final TextEditingController controller;
   final VoidCallback onEditingComplete;
-  final VoidCallback? onChanged;
+  final ValueChanged<String>? onChanged;
+  final FocusNode? focusNode;
+  final bool? enabled;
 
   const DndTextField(
       {Key? key,
@@ -62,9 +69,21 @@ class DndTextField extends StatelessWidget {
       this.iconColorDark,
       required this.controller,
       required this.onEditingComplete,
-      this.onChanged})
+      this.onChanged,
+      this.focusNode,
+      this.enabled,
+      this.fontColorDark,
+      this.fontColorLight,
+      this.fontWeight,
+      this.fontStyle,
+      this.fontSize})
       : super(key: key);
 
+  @override
+  State<DndTextField> createState() => _DndTextFieldState();
+}
+
+class _DndTextFieldState extends State<DndTextField> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -75,36 +94,40 @@ class DndTextField extends StatelessWidget {
       final shadowColor =
           darkTheme ? AppColors.shadowColorDark : AppColors.shadowColorLight;
 
+      final fontColor = darkTheme
+          ? widget.fontColorDark ?? AppColors.defaultTextDark
+          : widget.fontColorLight ?? AppColors.defaultTextLight;
+
       final hintColor = darkTheme
-          ? hintTextColorDark ?? AppColors.defaultHintTextDark
-          : hintTextColorLight ?? AppColors.defaultHintTextLight;
+          ? widget.hintTextColorDark ?? AppColors.defaultHintTextDark
+          : widget.hintTextColorLight ?? AppColors.defaultHintTextLight;
 
       final focusedBorderColor = darkTheme
-          ? focusedBorderColorDark ?? AppColors.defaultBorderDark
-          : focusedBorderColorLight ?? AppColors.defaultBorderLight;
+          ? widget.focusedBorderColorDark ?? AppColors.defaultBorderDark
+          : widget.focusedBorderColorLight ?? AppColors.defaultBorderLight;
 
       final enabledColor = darkTheme
-          ? enabledBorderColorDark ?? AppColors.defaultBorderDark
-          : enabledBorderColorLight ?? AppColors.defaultBorderLight;
+          ? widget.enabledBorderColorDark ?? AppColors.defaultBorderDark
+          : widget.enabledBorderColorLight ?? AppColors.defaultBorderLight;
 
       final borderColor = darkTheme
-          ? borderColorDark ?? AppColors.defaultBorderDark
-          : borderColorLight ?? AppColors.defaultBorderLight;
+          ? widget.borderColorDark ?? AppColors.defaultBorderDark
+          : widget.borderColorLight ?? AppColors.defaultBorderLight;
 
       final fillColor = darkTheme
-          ? fillColorDark ?? AppColors.defaultFillColorDark
-          : fillColorLight ?? AppColors.defaultFillColorLight;
+          ? widget.fillColorDark ?? AppColors.defaultFillColorDark
+          : widget.fillColorLight ?? AppColors.defaultFillColorLight;
 
       final iconColor = darkTheme
-          ? iconColorDark ?? AppColors.iconColorDark
-          : iconColorLight ?? AppColors.iconColorLight;
+          ? widget.iconColorDark ?? AppColors.iconColorDark
+          : widget.iconColorLight ?? AppColors.iconColorLight;
 
       return Container(
         margin: EdgeInsets.only(
-            left: marginLeft ?? 0.0,
-            top: marginTop ?? 0.0,
-            right: marginRight ?? 0.0,
-            bottom: marginBottom ?? 0.0),
+            left: widget.marginLeft ?? 0.0,
+            top: widget.marginTop ?? 0.0,
+            right: widget.marginRight ?? 0.0,
+            bottom: widget.marginBottom ?? 0.0),
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: shadowColor.withOpacity(0.5),
@@ -114,19 +137,24 @@ class DndTextField extends StatelessWidget {
           )
         ]),
         child: TextField(
-          onEditingComplete: onEditingComplete,
-          onChanged: (value) {
-            onChanged;
-          },
-          controller: controller,
+          style: TextStyle(
+              color: fontColor,
+              fontWeight: widget.fontWeight ?? FontWeight.w400,
+              fontSize: widget.fontSize ?? AppDimensions.textSizeDefault,
+              fontStyle: widget.fontStyle ?? FontStyle.normal),
+          enabled: widget.enabled ?? true,
+          focusNode: widget.focusNode,
+          onEditingComplete: widget.onEditingComplete,
+          onChanged: widget.onChanged,
+          controller: widget.controller,
           textInputAction: TextInputAction.search,
           decoration: InputDecoration(
             hintText: AppStrings.bestiarySearchHint,
             hintStyle: TextStyle(
               color: hintColor,
-              fontSize: hintTextSize ?? AppDimensions.textSizeDefault,
-              fontWeight: hintTextWeight ?? FontWeight.w400,
-              fontStyle: hintFontStyle ?? FontStyle.normal,
+              fontSize: widget.hintTextSize ?? AppDimensions.textSizeBig,
+              fontWeight: widget.hintTextWeight ?? FontWeight.w400,
+              fontStyle: widget.hintFontStyle ?? FontStyle.normal,
             ),
             focusedBorder: _defaultBorderStyle(focusedBorderColor),
             enabledBorder: _defaultBorderStyle(enabledColor),
@@ -142,8 +170,8 @@ class DndTextField extends StatelessWidget {
 
   OutlineInputBorder _defaultBorderStyle(Color borderColor) {
     return OutlineInputBorder(
-      borderRadius:
-          BorderRadius.circular(borderRadius ?? AppDimensions.radiusDefault),
+      borderRadius: BorderRadius.circular(
+          widget.borderRadius ?? AppDimensions.radiusDefault),
       borderSide: BorderSide(color: borderColor),
     );
   }

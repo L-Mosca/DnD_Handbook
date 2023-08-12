@@ -5,33 +5,27 @@ import 'package:dnd_app/values/app_strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/models/monster/monster.dart';
-
 class BestiarySearchContent extends StatefulWidget {
-  final TextEditingController controller;
-  final List<Results> monster;
-
-  const BestiarySearchContent(
-      {Key? key, required this.controller, required this.monster})
+  const BestiarySearchContent({Key? key, required this.searchFocusNode})
       : super(key: key);
+  final FocusNode searchFocusNode;
 
   @override
   State<BestiarySearchContent> createState() => _BestiarySearchContentState();
 }
 
 class _BestiarySearchContentState extends State<BestiarySearchContent> {
-  List<Results>? monsterFilter;
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
-    monsterFilter = widget.monster;
-  }
-
-  @override
-  void dispose() {
-    widget.controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -40,27 +34,22 @@ class _BestiarySearchContentState extends State<BestiarySearchContent> {
       children: [
         Expanded(
           child: DndTextField(
+              focusNode: widget.searchFocusNode,
               hintText: AppStrings.bestiarySearchHint,
               borderRadius: 0,
-              onEditingComplete: () {
-                _searchAction(widget.controller.text);
+              controller: searchController,
+              onChanged: (value) {
+                _searchAction(value);
               },
-              controller: widget.controller),
+              onEditingComplete: () {
+                _searchAction(searchController.text);
+              }),
         )
       ],
     );
   }
 
   void _searchAction(String query) {
-    final suggestion = widget.monster.where((element) {
-      final contactName = element.name?.toLowerCase();
-      final input = query.toLowerCase();
-
-      return contactName?.contains(input) == true;
-    }).toList();
-
-    setState(() => monsterFilter = suggestion);
-
-    context.read<BestiaryBloc>().add(BestiaryFilterEvent(monster: monsterFilter));
+    context.read<BestiaryBloc>().add(BestiaryFilterEvent(query: query));
   }
 }

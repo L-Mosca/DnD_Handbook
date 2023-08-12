@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BestiaryList extends StatefulWidget {
-  final Monster monsterList;
+  final List<Results> monsterList;
 
   const BestiaryList({Key? key, required this.monsterList}) : super(key: key);
 
@@ -21,11 +21,12 @@ class _BestiaryListState extends State<BestiaryList> {
       child: ListView.builder(
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          var item = widget.monsterList.results![index];
+          var item = widget.monsterList[index];
           return Column(
             children: [
               GestureDetector(
                 onTap: () {
+                  FocusScope.of(context).unfocus();
                   Get.toNamed(RoutesConstants.routeMonsterDetail, arguments: {
                     RoutesConstants.argumentMonsterDetailIndex: item.index ?? ''
                   });
@@ -36,7 +37,7 @@ class _BestiaryListState extends State<BestiaryList> {
             ],
           );
         },
-        itemCount: widget.monsterList.results?.length,
+        itemCount: widget.monsterList.length,
       ),
     );
   }

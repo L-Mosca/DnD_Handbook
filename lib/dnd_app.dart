@@ -27,6 +27,7 @@ class _DnDAppState extends State<DnDApp> {
       initialRoute: RoutesConstants.routeHome,
       getPages: AppRoutes.routes,
       initialBinding: HomeBinding(),
+      navigatorObservers: [Get.put<RouteObserver>(RouteObserver<PageRoute>())],
       builder: (context, child) {
         return FutureBuilder<bool>(
           future: DarkThemeProvider.to.darkThemePrefs.getTheme(),
