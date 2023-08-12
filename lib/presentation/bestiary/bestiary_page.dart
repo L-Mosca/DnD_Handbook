@@ -1,12 +1,11 @@
 import 'package:dnd_app/design_system/app_design/base_widgets/dnd_default_text.dart';
 import 'package:dnd_app/domain/models/monster/monster.dart';
-import 'package:dnd_app/presentation/bestiary/bloc/bestiary_event.dart';
 import 'package:dnd_app/presentation/bestiary/bloc/bestiary_state.dart';
 import 'package:dnd_app/presentation/bestiary/widgets/bestiary_empty_list.dart';
 import 'package:dnd_app/presentation/bestiary/widgets/bestiary_error.dart';
+import 'package:dnd_app/presentation/bestiary/widgets/bestiary_list.dart';
 import 'package:dnd_app/presentation/bestiary/widgets/bestiary_loading.dart';
 import 'package:dnd_app/presentation/bestiary/widgets/bestiary_search_content.dart';
-import 'package:dnd_app/presentation/bestiary/widgets/bestiary_list.dart';
 import 'package:dnd_app/values/app_dimensions.dart';
 import 'package:dnd_app/values/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -23,31 +22,37 @@ class BestiaryPage extends StatefulWidget {
   State<BestiaryPage> createState() => _BestiaryPageState();
 }
 
-class _BestiaryPageState extends State<BestiaryPage> {
+class _BestiaryPageState extends State<BestiaryPage> with RouteAware {
   final TextEditingController controller = TextEditingController();
   final themeState = Get.find<DarkThemeProvider>();
-
+  FocusNode focusNode = FocusNode();
   List<Results> list = [];
 
   @override
+  void didPopNext() {
+    print('BATEU AQUI');
+    focusNode.unfocus();
+    super.didPopNext();
+  }
+
+  @override
   void initState() {
+    focusNode.unfocus();
     super.initState();
-    _loadMonsterList();
   }
 
   @override
   void dispose() {
     controller.dispose();
+    focusNode.dispose();
+    Get.find<RouteObserver>().unsubscribe(this);
     super.dispose();
-  }
-
-  void _loadMonsterList() {
-    final bloc = context.read<BestiaryBloc>();
-    bloc.add(BestiaryInitEvent());
   }
 
   @override
   Widget build(BuildContext context) {
+    Get.find<RouteObserver>()
+        .subscribe(this, ModalRoute.of(context) as Route<dynamic>);
     return BlocListener<BestiaryBloc, BestiaryState>(
       listener: (context, state) {
         _onBestiaryStateChanged(state, context);
@@ -55,12 +60,12 @@ class _BestiaryPageState extends State<BestiaryPage> {
       child: SafeArea(
         child: Column(
           children: [
-        const SizedBox(height: AppDimensions.marginBig),
-        _pageTitle(),
-        const SizedBox(height: 30),
-        BestiarySearchContent(controller: controller, monster: list),
-        const SizedBox(height: 20),
-        Expanded(child: _pageContent())
+            const SizedBox(height: AppDimensions.marginBig),
+            _pageTitle(),
+            const SizedBox(height: 30),
+            BestiarySearchContent(searchFocusNode: focusNode),
+            const SizedBox(height: 20),
+            Expanded(child: _pageContent())
           ],
         ),
       ),
@@ -100,7 +105,9 @@ class _BestiaryPageState extends State<BestiaryPage> {
     return BlocBuilder<BestiaryBloc, BestiaryState>(builder: (context, state) {
       switch (state.status) {
         case BestiaryStatus.success:
-          return _monsterList(state.monster!);
+          return _monsterList(state.monster!.results!);
+        case BestiaryStatus.filter:
+          return _monsterList(state.filterList!);
         case BestiaryStatus.loading:
           return _loadingContent();
         case BestiaryStatus.error:
@@ -129,9 +136,7 @@ class _BestiaryPageState extends State<BestiaryPage> {
     return const BestiaryEmptyList();
   }
 
-  Widget _monsterList(Monster monsterList) {
-    return BestiaryList(
-      monsterList: monsterList,
-    );
+  Widget _monsterList(List<Results> monsterList) {
+    return BestiaryList(monsterList: monsterList);
   }
 }
